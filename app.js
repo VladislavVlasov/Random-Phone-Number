@@ -29,30 +29,25 @@ buttonGo.addEventListener('click', function () {
 
         for (let i = 0; i < phoneNumbersArray.length; i++) {
             let el = phoneNumbersArray[i];
-            list.innerHTML += `<li class="block-item mb-10">+998${inputCode.value}${el}</li>`
+            list.innerHTML += `<li class="mb-10"><a class="block-link" href="tel:+998${inputCode.value}${el}">+998${inputCode.value}${el}</a></li>`
         }
 
-        count.innerHTML += phoneNumbersArray.length
-
-
-        const items = document.querySelectorAll('.block-item')
-
-        for (let item of items) {
-            item.addEventListener('click', function () {
-                item.classList.toggle('active')
-            })
-        }
+        localStorage.setItem('numbers', JSON.stringify(phoneNumbersArray))
     } else {
         alert(`"${inputNumber.value}" - Это не число!`)
     }
 })
 
 buttonRl.addEventListener("click", function () {
+    list.innerHTML = count.innerHTML = ''
 
-    // console.log(numbers)
+    const raw = localStorage.getItem('numbers')
+    const parson = JSON.parse(raw)
 
-    for (let i = 0; i < numbers.length; i++) {
-        let el = numbers[i];
-        list.innerHTML += `<li class="block-item">${el}</li>`
+    for (let i = 0; i < parson.length; i++) {
+        let el = parson[i];
+        list.innerHTML += `<li class="mb-10"><a class="block-link" href="tel:+998${inputCode.value}${el}">+998${inputCode.value}${el}</a></li>`
     }
+
+    count.innerHTML += parson.length
 })
